@@ -1,7 +1,36 @@
-influxdb:
+influxdb2:
   enabled: true
   fullnameOverride: influxdb
+
+  image:
+    tag: 2.7.1-alpine
+
+  env:
+    - name: DOCKER_INFLUXDB_INIT_USERNAME
+      value: demouser
+
+    - name: DOCKER_INFLUXDB_INIT_PASSWORD
+      value: demouser
+
+    - name: DOCKER_INFLUXDB_INIT_ORG
+      value: prom
+
+    - name: DOCKER_INFLUXDB_INIT_BUCKET
+      value: analytic
+
+    - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+      value: edgehello
+
+    - name: DOCKER_INFLUXDB_INIT_MODE
+      value: "setup"
 
   persistence:
     enabled: true
     size: 200Gi
+
+  config:
+    http:
+      auth-enabled: true
+
+  setDefaultUser:
+    enabled: true
