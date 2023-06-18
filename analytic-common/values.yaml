@@ -5,6 +5,14 @@ influxdb:
   image:
     tag: 2.7.1-alpine
 
+  env:
+    DOCKER_INFLUXDB_INIT_MODE: setup
+    DOCKER_INFLUXDB_INIT_USERNAME: demouser
+    DOCKER_INFLUXDB_INIT_PASSWORD: demouser
+    DOCKER_INFLUXDB_INIT_ORG: prom
+    DOCKER_INFLUXDB_INIT_BUCKET: analytic
+    DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: edgehello
+
   persistence:
     enabled: true
     size: 200Gi
