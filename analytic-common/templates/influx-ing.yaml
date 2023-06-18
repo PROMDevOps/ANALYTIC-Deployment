@@ -20,4 +20,4 @@ spec:
               service:
                 name: influxdb
                 port:
-                  number: 8088
+                  number: 8086
