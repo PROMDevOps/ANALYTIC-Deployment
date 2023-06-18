@@ -5,3 +5,10 @@ influxdb:
   persistence:
     enabled: true
     size: 200Gi
+
+  config:
+    http:
+      auth-enabled: true
+
+  setDefaultUser:
+    enabled: true
