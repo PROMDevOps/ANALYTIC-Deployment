@@ -1,4 +1,4 @@
-influxdb:
+influxdb2:
   enabled: true
   fullnameOverride: influxdb
 
