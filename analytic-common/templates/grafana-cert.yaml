@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: grafana-cert
+spec:
+  secretName: grafana-cert
+  dnsNames:
+    - {{ .Values.domainGrafana }}
+  issuerRef:
+    name: lets-encrypt-issuer-prod
+    kind: ClusterIssuer
+    group: cert-manager.io

@@ -1,0 +1,7 @@
+influxdb:
+  enabled: true
+  fullnameOverride: influxdb
+
+  persistence:
+    enabled: true
+    size: 200Gi

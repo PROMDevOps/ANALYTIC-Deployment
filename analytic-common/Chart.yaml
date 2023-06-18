@@ -1,0 +1,15 @@
+apiVersion: v2
+name: helm-dap
+description: A Helm chart for Data Analytic Platform
+
+type: application
+
+version: 1.0.0
+
+appVersion: "1.0"
+
+dependencies:
+  - name: influxdb
+    version: "4.12.1"
+    repository: "https://helm.influxdata.com/"
+    condition: influxdb.enabled
