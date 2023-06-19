@@ -1,3 +1,45 @@
+### Logstash Http to Kafka ###
+logstash-http-to-kafka:
+  enabled: true
+  antiAffinity: soft
+
+  fullnameOverride: logstash-http-to-kafka
+  replicas: 1
+
+  service:
+    ports:
+      - name: http-input
+        port: 8080
+        targetPort: 8080
+        protocol: TCP
+
+  extraEnvs:
+    - name: LS_JAVA_OPTS
+      value: "-Xmx256m -Xms256m"
+
+    - name: DUMMY
+      value: "001"
+
+  logstashConfig:
+    logstash.yml: |
+      http.host: "0.0.0.0"
+      pipeline.ecs_compatibility: "disabled"
+
+  logstashPipeline:
+    logstash.conf: |
+      input {
+        http {
+          id => "http_input"
+          codec => "json_lines"
+          port => "8080"
+        }
+      }
+
+      output {
+        stdout { codec => json_lines }
+      }
+
+### InfluxDB ###
 influxdb2:
   enabled: true
   fullnameOverride: influxdb
@@ -6,23 +48,32 @@ influxdb2:
     tag: 2.7.1-alpine
 
   env:
-    - name: DOCKER_INFLUXDB_INIT_USERNAME
-      value: demouser
-
-    - name: DOCKER_INFLUXDB_INIT_PASSWORD
-      value: demouser
-
-    - name: DOCKER_INFLUXDB_INIT_ORG
-      value: prom
+    - name: DOCKER_INFLUXDB_INIT_MODE
+      value: "setup"
 
     - name: DOCKER_INFLUXDB_INIT_BUCKET
       value: analytic
 
-    - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
-      value: edgehello
+    - name: DOCKER_INFLUXDB_INIT_ORG
+      value: prom
 
-    - name: DOCKER_INFLUXDB_INIT_MODE
-      value: "setup"
+    - name: DOCKER_INFLUXDB_INIT_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: influx-credentials
+          key: DOCKER_INFLUXDB_INIT_USERNAME
+
+    - name: DOCKER_INFLUXDB_INIT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: influx-credentials
+          key: DOCKER_INFLUXDB_INIT_PASSWORD
+
+    - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: influx-credentials
+          key: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
 
   persistence:
     enabled: true
@@ -34,3 +85,44 @@ influxdb2:
 
   setDefaultUser:
     enabled: true
+
+### Grafana ###
+grafana:
+  enabled: true
+  image:
+    tag: "9.1.5" #8.5.13 #"9.1.5"
+
+  fullnameOverride: grafana
+  envRenderSecret: {}
+  envFromSecrets:
+    - name: influx-credentials
+      optional: false
+
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: InfluxDB-DAP
+        type: influxdb
+        access: Server
+        url: http://influxdb
+        jsonData:
+          version: Flux
+          organization: prom
+          defaultBucket: analytic
+          tlsSkipVerify: true
+        secureJsonData:
+          token: ${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
+
+  dashboardProviders: {}
+  dashboardsConfigMaps: {}
+  admin:
+    existingSecret: "grafana-credentials"
+    userKey: GRAFANA_USER
+    passwordKey: GRAFANA_PASSWORD
+  grafana.ini:
+    #feature_toggles:
+    #  enable: disableEnvelopeEncryption
+    log:
+      level: debug
+  extraSecretMounts: []
