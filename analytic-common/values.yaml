@@ -133,7 +133,7 @@ kafka:
   cluster:
     name: kafka-dap
     kafka:
-      diskSize: 100Gi
+      diskSize: 10Gi
       replicas: 1
     zooKeeper:
       diskSize: 3Gi
