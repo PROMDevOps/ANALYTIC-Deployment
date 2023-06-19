@@ -40,7 +40,7 @@ grafana:
   image:
     tag: "9.1.5" #8.5.13 #"9.1.5"
 
-  fullnameOverride: grafana-dap
+  fullnameOverride: grafana
   envRenderSecret: {}
   #envFromSecrets:
   #  - name: es-soc-basic-authen
