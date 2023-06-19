@@ -1,3 +1,45 @@
+### Logstash Http to Kafka ###
+logstash-http-to-kafka:
+  enabled: true
+  antiAffinity: soft
+
+  fullnameOverride: logstash-http-to-kafka
+  replicas: 1
+
+  service:
+    ports:
+      - name: http-input
+        port: 8080
+        targetPort: 8080
+        protocol: TCP
+
+  extraEnvs:
+    - name: LS_JAVA_OPTS
+      value: "-Xmx256m -Xms256m"
+
+    - name: DUMMY
+      value: "001"
+
+  logstashConfig:
+    logstash.yml: |
+      http.host: "0.0.0.0"
+      pipeline.ecs_compatibility: "disabled"
+
+  logstashPipeline:
+    logstash.conf: |
+      input {
+        http {
+          id => "http_input"
+          codec => "json_lines"
+          port => "8080"
+        }
+      }
+
+      output {
+        stdout { codec => json_lines }
+      }
+
+### InfluxDB ###
 influxdb2:
   enabled: true
   fullnameOverride: influxdb
@@ -44,6 +86,7 @@ influxdb2:
   setDefaultUser:
     enabled: true
 
+### Grafana ###
 grafana:
   enabled: true
   image:
