@@ -51,11 +51,26 @@ grafana:
 
   fullnameOverride: grafana
   envRenderSecret: {}
-  #envFromSecrets:
-  #  - name: es-soc-basic-authen
-  #    optional: false
+  envFromSecrets:
+    - name: influx-credentials
+      optional: false
 
-  datasources: {}
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: InfluxDB-DAP
+        type: influxdb
+        access: Server
+        url: http://influxdb
+        jsonData:
+          version: Flux
+          organization: prom
+          defaultBucket: analytic
+          tlsSkipVerify: true
+        secureJsonData:
+          token: ${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
+
   dashboardProviders: {}
   dashboardsConfigMaps: {}
   admin:
