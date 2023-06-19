@@ -145,6 +145,7 @@ kafka:
 kafka-ui:
   enabled: true
   fullnameOverride: kafka-ui
+  existingSecret: kafka-ui-credential
   envs:
     config:
       KAFKA_CLUSTERS_0_NAME: kafka-dap
@@ -155,5 +156,3 @@ kafka-ui:
       #AUTH_TYPE: "DISABLED"
       AUTH_TYPE: "LOGIN_FORM"
       SECURITY_BASIC_ENABLED: "true"
-      SPRING_SECURITY_USER_NAME: admin
-      SPRING_SECURITY_USER_PASSWORD: admin1234
