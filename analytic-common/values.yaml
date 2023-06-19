@@ -6,23 +6,32 @@ influxdb2:
     tag: 2.7.1-alpine
 
   env:
-    - name: DOCKER_INFLUXDB_INIT_USERNAME
-      value: demouser
-
-    - name: DOCKER_INFLUXDB_INIT_PASSWORD
-      value: demouser
-
-    - name: DOCKER_INFLUXDB_INIT_ORG
-      value: prom
+    - name: DOCKER_INFLUXDB_INIT_MODE
+      value: "setup"
 
     - name: DOCKER_INFLUXDB_INIT_BUCKET
       value: analytic
 
-    - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
-      value: edgehello
+    - name: DOCKER_INFLUXDB_INIT_ORG
+      value: prom
 
-    - name: DOCKER_INFLUXDB_INIT_MODE
-      value: "setup"
+    - name: DOCKER_INFLUXDB_INIT_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: influx-credentials
+          key: DOCKER_INFLUXDB_INIT_USERNAME
+
+    - name: DOCKER_INFLUXDB_INIT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: influx-credentials
+          key: DOCKER_INFLUXDB_INIT_PASSWORD
+
+    - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: influx-credentials
+          key: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
 
   persistence:
     enabled: true
