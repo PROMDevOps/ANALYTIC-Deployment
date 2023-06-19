@@ -1,6 +1,7 @@
 envAlias: development
 domainInflux: influx.analytic-dev.its-software-services.com
 domainGrafana: grafana.analytic-dev.its-software-services.com
+domainKafka: kafka-ui.analytic-dev.its-software-services.com
 
 grafana:
   grafana.ini:
