@@ -34,3 +34,29 @@ influxdb2:
 
   setDefaultUser:
     enabled: true
+
+grafana:
+  enabled: true
+  image:
+    tag: "9.1.5" #8.5.13 #"9.1.5"
+
+  fullnameOverride: grafana-dap
+  envRenderSecret: {}
+  #envFromSecrets:
+  #  - name: es-soc-basic-authen
+  #    optional: false
+
+  datasources: {}
+  dashboardProviders: {}
+  dashboardsConfigMaps: {}
+
+  grafana.ini:
+    #feature_toggles:
+    #  enable: disableEnvelopeEncryption
+    log:
+      level: debug
+    admin:
+      existingSecret: "grafana-credentials"
+      userKey: GRAFANA_USER
+      passwordKey: GRAFANA_PASSWORD
+  extraSecretMounts: []
