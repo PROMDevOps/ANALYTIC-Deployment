@@ -134,7 +134,7 @@ kafka:
     name: kafka-dap
     kafka:
       diskSize: 100Gi
-      replicas: 3
+      replicas: 1
     zooKeeper:
       diskSize: 3Gi
       replicas: 1
