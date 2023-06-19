@@ -49,14 +49,13 @@ grafana:
   datasources: {}
   dashboardProviders: {}
   dashboardsConfigMaps: {}
-
+  admin:
+    existingSecret: "grafana-credentials"
+    userKey: GRAFANA_USER
+    passwordKey: GRAFANA_PASSWORD
   grafana.ini:
     #feature_toggles:
     #  enable: disableEnvelopeEncryption
     log:
       level: debug
-    admin:
-      existingSecret: "grafana-credentials"
-      userKey: GRAFANA_USER
-      passwordKey: GRAFANA_PASSWORD
   extraSecretMounts: []
