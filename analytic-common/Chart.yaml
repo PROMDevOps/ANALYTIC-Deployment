@@ -24,3 +24,9 @@ dependencies:
     condition: logstash-http-to-kafka.enabled
     repository: "https://helm.elastic.co"
     version: "8.5.1"
+
+  - name: "kafka"
+    alias: kafka
+    condition: kafka.enabled
+    repository: "https://charts.bitnami.com/bitnami"
+    version: "22.1.6"

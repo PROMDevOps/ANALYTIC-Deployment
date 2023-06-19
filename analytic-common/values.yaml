@@ -130,24 +130,5 @@ grafana:
 
 ### Kafka ###
 kafka:
-  cluster:
-    name: kafka-dap
-    kafka:
-      diskSize: 10Gi
-      replicas: 1
-    zooKeeper:
-      diskSize: 3Gi
-      replicas: 1
-  topics:
-    topic1:
-      name: kafka-dap-topic
-      cluster: kafka-dap
-      partitions: 3
-      replicas: 1
-      config:
-        retention.ms: 72000000
-        segment.bytes: 1073741824
-  users:
-    forui:
-      name: kafka-ui
-      cluster: kafka-dap
+  enabled: true
+  fullnameOverride: kafka
