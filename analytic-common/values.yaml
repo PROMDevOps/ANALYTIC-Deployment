@@ -133,6 +133,7 @@ kafka:
   enabled: true
   fullnameOverride: kafka
   provisioning:
+    enabled: true
     topics:
       - name: prom-dap
         partitions: 1
