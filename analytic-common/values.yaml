@@ -36,7 +36,7 @@ logstash-http-to-kafka:
       }
 
       output {
-        #stdout { codec => json_lines }
+        stdout { codec => json_lines }
 
         kafka {
           bootstrap_servers => "kafka:9092"
@@ -211,11 +211,11 @@ vector-kafka-to-influxdb:
           - kafka_to_influxdb
 
     sinks:
-      stdout:
-        type: console
-        inputs: [process_kafka_to_influxdb]
-        encoding:
-          codec: text
+      #stdout:
+      #  type: console
+      #  inputs: [process_kafka_to_influxdb]
+      #  encoding:
+      #    codec: text
 
       influxdb1:
         type: "influxdb_logs"
