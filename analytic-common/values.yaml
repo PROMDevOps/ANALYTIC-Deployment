@@ -81,6 +81,13 @@ logstash-kafka-to-influxdb:
 
       output {
         stdout { codec => json_lines }
+
+        influxdb {
+          host => "influxdb"
+          port => 80
+          database => "analytic"
+          measurement => "test_measurement"
+        }
       }
 
 ### InfluxDB ###
