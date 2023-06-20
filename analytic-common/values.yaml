@@ -37,6 +37,12 @@ logstash-http-to-kafka:
 
       output {
         stdout { codec => json_lines }
+
+        kafka {
+          bootstrap_servers => "kafka:9092"
+          codec => json
+          topic_id => "prom-dap"
+        }
       }
 
 ### InfluxDB ###
