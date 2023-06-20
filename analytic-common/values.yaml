@@ -44,7 +44,7 @@ logstash-http-to-kafka:
           topic_id => "prom-dap"
         }
       }
-  
+
 ### InfluxDB ###
 influxdb2:
   enabled: true
@@ -96,7 +96,7 @@ influxdb2:
 grafana:
   enabled: true
   image:
-    tag: "9.1.5" #8.5.13 #"9.1.5"
+    tag: "9.1.5"
 
   fullnameOverride: grafana
   envRenderSecret: {}
@@ -201,11 +201,16 @@ vector-kafka-to-influxdb:
         group_id: "to-influxdb"
         topics: [ "prom-dap" ]
 
-    transforms: {}
+    transforms:
+      process_kafka_to_influxdb:
+        type: remap
+        file: "/scripts/process_kafka_to_influxdb.vrl"
+        inputs:
+          - kafka
 
     sinks:
       stdout:
         type: console
-        inputs: [kafka_to_influxdb]
+        inputs: [process_kafka_to_influxdb]
         encoding:
-          codec: json
+          codec: text

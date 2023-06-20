@@ -3,10 +3,7 @@ kind: ConfigMap
 metadata:
   name: vector-filter-cm
   annotations:
-    checksum/config1: {{ .Files.Get "scripts/process_cloud_logs.vrl" | sha256sum }}
-    checksum/config4: {{ .Files.Get "scripts/process_app_logs_syslog.vrl" | sha256sum }}
+    checksum/config4: {{ .Files.Get "scripts/process_kafka_to_influxdb.vrl" | sha256sum }}
 data:
-  process_cloud_logs.vrl: |-
-{{ .Files.Get "scripts/process_cloud_logs.vrl" |  indent 4 }}
-  process_app_logs_syslog.vrl: |-
-{{ .Files.Get "scripts/process_app_logs_syslog.vrl" |  indent 4 }}
+  process_kafka_to_influxdb.vrl: |-
+{{ .Files.Get "scripts/process_kafka_to_influxdb.vrl" |  indent 4 }}
