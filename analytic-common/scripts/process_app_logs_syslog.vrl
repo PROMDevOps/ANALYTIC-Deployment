@@ -1,0 +1,36 @@
+org_obj = .
+. = {}
+.message = null
+
+if (org_obj.log != null) {
+    .message = org_obj.log
+}
+
+if (org_obj.output != null) {
+    .message = org_obj.output
+}
+
+if (org_obj.message != null) {
+    .message = org_obj.message
+}
+
+if (.message == null) || (.message == "") {
+    .message = org_obj
+}
+
+.namespace = org_obj.kubernetes.namespace_name
+.pod = org_obj.kubernetes.pod_name
+.container = org_obj.kubernetes.container_name
+.app_kubernetes_io_component = org_obj.kubernetes.labels."app.kubernetes.io/component"
+.app_kubernetes_io_name = org_obj.kubernetes.labels."app.kubernetes.io/name"
+.app_kubernetes_io_instance = org_obj.kubernetes.labels."app.kubernetes.io/instance"
+
+.type = "app-log"
+
+#gke:evermed-devops-prod:gke-devops-cicd
+
+tokens = split!(org_obj.appname, ":")
+.cluster = tokens[2]
+.project = tokens[1]
+.platform = tokens[0]
+.timestamp = now()
