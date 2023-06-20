@@ -167,6 +167,9 @@ vector-kafka-to-influxdb:
   persistence:
     enabled: true
   env:
+    - name: DUMMY
+      value: "000"
+
     - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
       valueFrom:
         secretKeyRef:
