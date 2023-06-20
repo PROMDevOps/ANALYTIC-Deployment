@@ -206,7 +206,7 @@ vector-kafka-to-influxdb:
         type: remap
         file: "/scripts/process_kafka_to_influxdb.vrl"
         inputs:
-          - kafka
+          - kafka_to_influxdb
 
     sinks:
       stdout:
