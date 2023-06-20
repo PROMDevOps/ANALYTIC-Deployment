@@ -45,6 +45,44 @@ logstash-http-to-kafka:
         }
       }
 
+### Logstash Kafka to InfluxDB ###
+logstash-kafka-to-influxdb:
+  enabled: true
+  antiAffinity: soft
+
+  fullnameOverride: logstash-kafka-to-influxdb
+  replicas: 1
+
+  extraEnvs:
+    - name: LS_JAVA_OPTS
+      value: "-Xmx256m -Xms256m"
+
+    - name: DUMMY
+      value: "001"
+
+  logstashConfig:
+    logstash.yml: |
+      http.host: "0.0.0.0"
+      pipeline.ecs_compatibility: "disabled"
+
+  logstashPipeline:
+    logstash.conf: |
+      input {
+        kafka {
+          bootstrap_servers => "kafka:9092"
+          group_id => "for-influxdb"
+          consumer_threads => 1
+          topics => ["prom-dap"]
+          codec => "json"
+          type => "log"
+          auto_offset_reset => "earliest"
+        }
+      }
+
+      output {
+        stdout { codec => json_lines }
+      }
+
 ### InfluxDB ###
 influxdb2:
   enabled: true
