@@ -156,11 +156,8 @@ kafka-ui:
     config:
       KAFKA_CLUSTERS_0_NAME: kafka-dap
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
-      #KAFKA_CLUSTERS_0_PROPERTIES_SASL_MECHANISM: SCRAM-SHA-512
-      #KAFKA_CLUSTERS_0_PROPERTIES_SECURITY_PROTOCOL: SASL_PLAINTEXT
       KAFKA_CLUSTERS_0_READONLY: "false"
-      #AUTH_TYPE: "DISABLED"
-      AUTH_TYPE: "LOGIN_FORM"
+      AUTH_TYPE: "LOGIN_FORM" #"DISABLED"
       SECURITY_BASIC_ENABLED: "true"
 
 vector-kafka-to-influxdb:
@@ -169,11 +166,13 @@ vector-kafka-to-influxdb:
   replicas: 1
   persistence:
     enabled: true
-  env: []
-  #  - name: POD_NAME
-  #    valueFrom:
-  #      fieldRef:
-  #        fieldPath: metadata.name
+  env:
+    - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: influx-credentials
+          key: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+
   service:
     enabled: false
   serviceAccount:
@@ -214,3 +213,12 @@ vector-kafka-to-influxdb:
         inputs: [process_kafka_to_influxdb]
         encoding:
           codec: text
+
+      influxdb:
+        type: "influxdb_metrics"
+        inputs: [process_kafka_to_influxdb]
+        bucket: "analytic"
+        database: "notused"
+        endpoint: "http://influxdb/"
+        org: "prom"
+        token: "${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}"
