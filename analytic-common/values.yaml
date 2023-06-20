@@ -225,3 +225,7 @@ vector-kafka-to-influxdb:
         org: "prom"
         measurement: "api-call"
         token: "${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}"
+        tags:
+          - request.method
+          - request.headers.x-forwarded-host
+          - response.status
