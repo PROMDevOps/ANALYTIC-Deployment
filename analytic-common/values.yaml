@@ -44,11 +44,6 @@ logstash-http-to-kafka:
           topic_id => "prom-dap"
         }
       }
-
-### OpenSearch ###
-opensearch:
-  enabled: true
-  fullnameOverride: opensearch
   
 ### InfluxDB ###
 influxdb2:
