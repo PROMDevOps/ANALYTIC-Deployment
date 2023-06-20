@@ -174,7 +174,10 @@ vector-kafka-to-influxdb:
   #    valueFrom:
   #      fieldRef:
   #        fieldPath: metadata.name
-
+  serviceAccount:
+    create: true
+  rbac:
+    create: true
   extraVolumeMounts:
     - name: scripts
       mountPath: /scripts/
