@@ -217,15 +217,21 @@ vector-kafka-to-influxdb:
         encoding:
           codec: json
 
-      influxdb1:
-        type: "influxdb_logs"
+      stdout_raw:
+        type: console
         inputs: [kafka_to_influxdb]
-        bucket: "analytic"
-        endpoint: "http://influxdb/"
-        org: "prom"
-        measurement: "api-call"
-        token: "${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}"
-        tags:
-          - request.method
-          - request.headers.x-forwarded-host
-          - response.status
+        encoding:
+          codec: json
+
+#      influxdb1:
+#        type: "influxdb_logs"
+#        inputs: [kafka_to_influxdb]
+#        bucket: "analytic"
+#        endpoint: "http://influxdb/"
+#        org: "prom"
+#        measurement: "api-call"
+#        token: "${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}"
+#        tags:
+#          - request.method
+#          - request.headers.x-forwarded-host
+#          - response.status
