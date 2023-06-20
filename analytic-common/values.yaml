@@ -202,7 +202,9 @@ vector-kafka-to-influxdb:
         bootstrap_servers: "kafka:9092"
         group_id: "to-influxdb"
         topics: [ "prom-dap" ]
-
+        encoding:
+          codec: json
+  
     transforms:
       process_kafka_to_influxdb:
         type: remap
