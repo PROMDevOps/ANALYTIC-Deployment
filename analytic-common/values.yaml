@@ -36,7 +36,7 @@ logstash-http-to-kafka:
       }
 
       output {
-        stdout { codec => json_lines }
+        #stdout { codec => json_lines }
 
         kafka {
           bootstrap_servers => "kafka:9092"
@@ -225,15 +225,14 @@ vector-kafka-to-influxdb:
         encoding:
           codec: json
 
-#      influxdb1:
-#        type: "influxdb_logs"
-#        inputs: [kafka_to_influxdb]
-#        bucket: "analytic"
-#        endpoint: "http://influxdb/"
-#        org: "prom"
-#        measurement: "api-call"
-#        token: "${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}"
-#        tags:
-#          - request.method
-#          - request.headers.x-forwarded-host
-#          - response.status
+      influxdb1:
+        type: "influxdb_logs"
+        inputs: [kafka_to_influxdb]
+        bucket: "analytic"
+        endpoint: "http://influxdb/"
+        org: "prom"
+        measurement: "test2"
+        token: "${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}"
+        tags:
+          - method
+          - status
