@@ -1,3 +1,7 @@
 org_obj = .
 . = {}
-.message = "prom_api,host=api.promrub.prom.co.th latency_ms=100.40,src_ip=10.100.1.3 1687266909892360494"
+
+.host = org_obj.host
+.message = org_obj.request.url
+.status = org_obj.response.status
+.method = org_obj.request.method
