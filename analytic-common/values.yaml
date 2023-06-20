@@ -1,6 +1,6 @@
 ### Logstash Http to Kafka ###
 logstash-http-to-kafka:
-  enabled: true
+  enabled: false
   antiAffinity: soft
 
   fullnameOverride: logstash-http-to-kafka
@@ -47,7 +47,7 @@ logstash-http-to-kafka:
   
 ### InfluxDB ###
 influxdb2:
-  enabled: true
+  enabled: false
   fullnameOverride: influxdb
 
   image:
@@ -94,7 +94,7 @@ influxdb2:
 
 ### Grafana ###
 grafana:
-  enabled: true
+  enabled: false
   image:
     tag: "9.1.5" #8.5.13 #"9.1.5"
 
@@ -136,7 +136,7 @@ grafana:
 
 ### Kafka ###
 kafka:
-  enabled: true
+  enabled: false
   fullnameOverride: kafka
   provisioning:
     enabled: true
@@ -149,7 +149,7 @@ kafka:
           max.message.bytes: 64000
 
 kafka-ui:
-  enabled: true
+  enabled: false
   fullnameOverride: kafka-ui
   existingSecret: kafka-ui-credential
   envs:
