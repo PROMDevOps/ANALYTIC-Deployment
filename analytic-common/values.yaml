@@ -162,3 +162,45 @@ kafka-ui:
       #AUTH_TYPE: "DISABLED"
       AUTH_TYPE: "LOGIN_FORM"
       SECURITY_BASIC_ENABLED: "true"
+
+vector-kafka-to-influxdb:
+  enabled: true
+  fullnameOverride: vector-kafka-to-influxdb
+  replicas: 1
+  persistence:
+    enabled: true
+  env: []
+  #  - name: POD_NAME
+  #    valueFrom:
+  #      fieldRef:
+  #        fieldPath: metadata.name
+
+  extraVolumeMounts:
+    - name: scripts
+      mountPath: /scripts/
+      readOnly: true
+  extraVolumes:
+    - name: scripts
+      configMap:
+        name: vector-filter-cm
+
+  customConfig:
+    data_dir: "/vector-data-dir" #Do not change this if you don't know the impact
+    sources:
+      internal_metrics:
+        type: internal_metrics
+
+      kafka_to_influxdb:
+        type: kafka
+        bootstrap_servers: "kafka:9092"
+        group_id: "to-influxdb"
+        topics: [ "prom-dap" ]
+
+    transforms: {}
+
+    sinks:
+      stdout:
+        type: console
+        inputs: [kafka_to_influxdb]
+        encoding:
+          codec: json

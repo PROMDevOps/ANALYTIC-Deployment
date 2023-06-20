@@ -1,0 +1,35 @@
+json_str = .message
+. = {}
+.message = parse_json!(string!(json_str))
+
+.type = "audit-log"
+.category = .message.resource.type
+.project_id = .message.resource.labels.project_id
+.timestamp = .message.timestamp
+.pod_name_vector = get_env_var!("POD_NAME")
+
+if (.category == "http_load_balancer") {
+    if (.message.httpRequest.referer != null) {    
+        refererUrl = parse_url!(to_string!(.message.httpRequest.referer))
+        .refererHost = refererUrl.host
+        .refererPath = refererUrl.path
+    }
+
+    if (.message.httpRequest.requestUrl != null) {    
+        requestUrl = parse_url!(to_string!(.message.httpRequest.requestUrl))
+        .requestHost = requestUrl.host
+        .requestPath = requestUrl.path
+    }
+
+    .latency = .message.httpRequest.latency
+    .remoteIp = .message.httpRequest.remoteIp
+    .requestMethod = .message.httpRequest.requestMethod
+    .requestSize = .message.httpRequest.requestSize
+    .responseSize = .message.httpRequest.responseSize
+    .status = .message.httpRequest.status
+} else if (.category == "k8s_cluster") {
+    .cluster_name = .message.resource.labels.cluster_name
+    .location = .message.resource.labels.location
+} else if (.category == "nat_gateway") {
+    .dest_ip = .message.jsonPayload.connection.dest_ip
+}
