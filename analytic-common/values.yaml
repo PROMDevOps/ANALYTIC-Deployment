@@ -264,5 +264,5 @@ vector-kafka-to-influxdb:
         endpoint: "https://logs-prod-011.grafana.net/loki/api/v1/push"
         auth:
           strategy: basic
-          user: '${GRAFANA_LOKI_USER}'
-          password: '${GRAFANA_LOKI_PASSWORD}'
+          user: '475784'
+          password: ${GRAFANA_LOKI_PASSWORD}
