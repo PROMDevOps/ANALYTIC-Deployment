@@ -261,7 +261,7 @@ vector-kafka-to-influxdb:
         inputs: [process_kafka_to_loki]
         encoding:
           codec: json
-        endpoint: "https://logs-prod-011.grafana.net/loki/api/v1/push"
+        endpoint: "https://logs-prod-011.grafana.net/"
         auth:
           strategy: basic
           user: '475784'
