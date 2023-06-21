@@ -162,7 +162,7 @@ kafka-ui:
 
 vector-kafka-to-influxdb:
   enabled: true
-  fullnameOverride: vector-kafka-to-influxdb
+  fullnameOverride: vector-kafka-to-storage
   replicas: 1
   persistence:
     enabled: true
