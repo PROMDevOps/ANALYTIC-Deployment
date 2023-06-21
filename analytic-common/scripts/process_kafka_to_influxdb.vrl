@@ -1,0 +1,20 @@
+org_obj = .
+. = {}
+
+.upstream_uri = org_obj.upstream_uri
+.latencies_ms_kong = org_obj.latencies.kong
+.latencies_ms_proxy = org_obj.latencies.proxy
+.latencies_ms_request = org_obj.latencies.request
+.request_headers_host = org_obj.request.headers.host
+.request_headers_referer = org_obj.request.headers.referer
+.request_headers_useragent = org_obj.request.headers."user-agent"
+.request_headers_xrealip = org_obj.request.headers."x-real-ip"
+.request_headers_xforwardedfor = org_obj.request.headers."x-forwarded-for"
+.request_headers_xforwardedhost = org_obj.request.headers."x-forwarded-host"
+.request_headers_xrequestid = org_obj.request.headers."x-request-id"
+.request_method = org_obj.request.method
+.request_size = org_obj.request.size
+.request_uri = org_obj.request.uri
+.request_url = org_obj.request.url
+.response_size = org_obj.response.size
+.response_status = org_obj.response.status
