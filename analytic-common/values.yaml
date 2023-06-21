@@ -261,10 +261,10 @@ vector-kafka-to-influxdb:
         inputs: [process_kafka_to_loki]
         encoding:
           codec: json
-        endpoint: "https://logs-prod-011.grafana.net/"
+        endpoint: "https://logs-prod-011.grafana.net/api/prom/push"
         auth:
           strategy: basic
           user: '475784'
-          password: ${GRAFANA_LOKI_PASSWORD}
+          password: 'glc_eyJvIjoiODQxMTAzIiwibiI6InByb20tYXBpLWxva2ktMiIsImsiOiI2MDUyRUNsT3A4MkxDbTJGdVM5NTN2ZmoiLCJtIjp7InIiOiJwcm9kLWFwLXNvdXRoZWFzdC0wIn19' #${GRAFANA_LOKI_PASSWORD}
         labels:
           category: 'prom-api'
