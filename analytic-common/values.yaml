@@ -168,7 +168,7 @@ vector-kafka-to-influxdb:
     enabled: true
   env:
     - name: DUMMY
-      value: "002"
+      value: "003"
 
     - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
       valueFrom:
