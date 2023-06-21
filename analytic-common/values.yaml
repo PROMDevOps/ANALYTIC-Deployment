@@ -170,11 +170,11 @@ vector-kafka-to-influxdb:
     - name: DUMMY
       value: "005"
 
-    - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+    - name: INFLUXDB_CLOUD_TOKEN
       valueFrom:
         secretKeyRef:
           name: influx-credentials
-          key: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+          key: INFLUXDB_CLOUD_TOKEN
 
     - name: GRAFANA_LOKI_USER
       valueFrom:
@@ -247,10 +247,10 @@ vector-kafka-to-influxdb:
         type: "influxdb_logs"
         inputs: [process_kafka_to_influxdb]
         bucket: "analytic"
-        endpoint: "http://influxdb/"
-        org: "prom"
+        endpoint: "https://eu-central-1-1.aws.cloud2.influxdata.com" #"http://influxdb/"
+        org: "DevOps" #"prom"
         measurement: "prom-api"
-        token: "${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}"
+        token: "${INFLUXDB_CLOUD_TOKEN}"
         tags:
           - response_status
           - request_method
