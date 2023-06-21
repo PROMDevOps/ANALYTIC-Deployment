@@ -268,3 +268,9 @@ vector-kafka-to-influxdb:
           password: ${GRAFANA_LOKI_PASSWORD}
         labels:
           category: 'prom-api'
+          host: >-
+            {{ printf "{{ request.headers.host }}" }}
+          method: >-
+            {{ printf "{{ request.method }}" }}
+          status: >-
+            {{ printf "{{ request.status }}" }}
