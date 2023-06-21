@@ -168,7 +168,7 @@ vector-kafka-to-influxdb:
     enabled: true
   env:
     - name: DUMMY
-      value: "000"
+      value: "001"
 
     - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
       valueFrom:
@@ -231,8 +231,9 @@ vector-kafka-to-influxdb:
         bucket: "analytic"
         endpoint: "http://influxdb/"
         org: "prom"
-        measurement: "test3"
+        measurement: "prom-api"
         token: "${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}"
         tags:
-          - method
-          - status
+          - response_status
+          - request_method
+          - request_headers_host
