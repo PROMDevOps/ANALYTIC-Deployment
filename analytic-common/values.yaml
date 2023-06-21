@@ -265,6 +265,6 @@ vector-kafka-to-influxdb:
         auth:
           strategy: basic
           user: '475784'
-          password: 'glc_eyJvIjoiODQxMTAzIiwibiI6InByb20tYXBpLWxva2ktMiIsImsiOiI2MDUyRUNsT3A4MkxDbTJGdVM5NTN2ZmoiLCJtIjp7InIiOiJwcm9kLWFwLXNvdXRoZWFzdC0wIn19' #${GRAFANA_LOKI_PASSWORD}
+          password: ${GRAFANA_LOKI_PASSWORD}
         labels:
           category: 'prom-api'
