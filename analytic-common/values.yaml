@@ -273,4 +273,4 @@ vector-kafka-to-influxdb:
           method: >-
             {{ printf "{{ request.method }}" }}
           status: >-
-            {{ printf "{{ request.status }}" }}
+            {{ printf "{{ response.status }}" }}
