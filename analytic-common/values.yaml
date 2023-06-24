@@ -160,7 +160,7 @@ kafka-ui:
       AUTH_TYPE: "LOGIN_FORM" #"DISABLED"
       SECURITY_BASIC_ENABLED: "true"
 
-vector-kafka-to-influxdb:
+vector-kafka-to-storage:
   enabled: true
   fullnameOverride: vector-kafka-to-storage
   replicas: 1
@@ -187,6 +187,12 @@ vector-kafka-to-influxdb:
         secretKeyRef:
           name: vector-credentials
           key: GRAFANA_LOKI_PASSWORD
+
+    - name: ENVIRONMENT
+      valueFrom:
+        secretKeyRef:
+          name: vector-credentials
+          key: ENVIRONMENT
 
   service:
     enabled: false
@@ -255,6 +261,7 @@ vector-kafka-to-influxdb:
           - response_status
           - request_method
           - request_headers_host
+          - environment
 
       loki:
         type: "loki"
@@ -268,6 +275,8 @@ vector-kafka-to-influxdb:
           password: ${GRAFANA_LOKI_PASSWORD}
         labels:
           category: 'prom-api'
+          environment: >-
+            {{ printf "{{ platform_environment }}" }}
           host: >-
             {{ printf "{{ request.headers.host }}" }}
           method: >-
