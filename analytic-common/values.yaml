@@ -261,7 +261,7 @@ vector-kafka-to-storage:
           - response_status
           - request_method
           - request_headers_host
-          - platform_environment
+          - environment
 
       loki:
         type: "loki"

@@ -19,3 +19,4 @@ org_obj = .
 .response_size = org_obj.response.size
 .response_status = org_obj.response.status
 .platform_environment = get_env_var!("ENVIRONMENT")
+.environment = get_env_var!("ENVIRONMENT")
