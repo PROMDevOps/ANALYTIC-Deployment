@@ -39,7 +39,7 @@ dependencies:
 
   # https://github.com/vectordotdev/helm-charts/tree/develop/charts/vector
   - name: vector
-    alias: vector-kafka-to-influxdb
+    alias: vector-kafka-to-storage
     version: "0.22.1"
     repository: "https://helm.vector.dev"
-    condition: vector-kafka-to-influxdb.enabled
+    condition: vector-kafka-to-storage.enabled
