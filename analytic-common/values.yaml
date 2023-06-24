@@ -261,6 +261,7 @@ vector-kafka-to-storage:
           - response_status
           - request_method
           - request_headers_host
+          - platform_environment
 
       loki:
         type: "loki"
@@ -274,6 +275,8 @@ vector-kafka-to-storage:
           password: ${GRAFANA_LOKI_PASSWORD}
         labels:
           category: 'prom-api'
+          environment: >-
+            {{ printf "{{ platform_environment }}" }}
           host: >-
             {{ printf "{{ request.headers.host }}" }}
           method: >-
