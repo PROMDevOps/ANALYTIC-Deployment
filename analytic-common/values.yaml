@@ -37,7 +37,7 @@ logstash-http-to-kafka:
 
       filter {
         geoip {
-          source => "request.headers.x-real-ip"
+          source => "[request][headers][x-real-ip]"
         }
       }
 
