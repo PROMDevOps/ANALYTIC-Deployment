@@ -174,7 +174,7 @@ vector-kafka-to-storage:
     enabled: true
   env:
     - name: DUMMY
-      value: "005"
+      value: "006"
 
     - name: INFLUXDB_CLOUD_TOKEN
       valueFrom:
