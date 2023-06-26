@@ -35,6 +35,12 @@ logstash-http-to-kafka:
         }
       }
 
+      filter {
+        geoip {
+          source => "[request][headers][x-real-ip]"
+        }
+      }
+
       output {
         #stdout { codec => json_lines }
 
