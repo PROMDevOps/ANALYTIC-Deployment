@@ -4,7 +4,7 @@ logstash-http-to-kafka:
   antiAffinity: soft
 
   fullnameOverride: logstash-http-to-kafka
-  replicas: 1
+  replicas: 2
 
   resources:
     requests:
