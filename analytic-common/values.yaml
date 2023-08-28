@@ -4,7 +4,17 @@ logstash-http-to-kafka:
   antiAffinity: soft
 
   fullnameOverride: logstash-http-to-kafka
-  replicas: 1
+  replicas: 2
+
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "1Gi"
+    limits:
+      cpu: "3000m"
+      memory: "3Gi"
+
+  logstashJavaOpts: "-Xmx2g -Xms2g"
 
   service:
     ports:
@@ -14,8 +24,8 @@ logstash-http-to-kafka:
         protocol: TCP
 
   extraEnvs:
-    - name: LS_JAVA_OPTS
-      value: "-Xmx256m -Xms256m"
+    #- name: LS_JAVA_OPTS
+    #  value: "-Xmx2g -Xms2g"
 
     - name: DUMMY
       value: "001"
