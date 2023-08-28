@@ -11,8 +11,8 @@ logstash-http-to-kafka:
       cpu: "100m"
       memory: "1Gi"
     limits:
-      cpu: "2000m"
-      memory: "2Gi"
+      cpu: "3000m"
+      memory: "3Gi"
 
   service:
     ports:
