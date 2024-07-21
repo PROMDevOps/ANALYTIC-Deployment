@@ -1,10 +1,10 @@
 envAlias: development
-domainInflux: influx.analytic-dev.its-software-services.com
-domainGrafana: grafana.analytic-dev.its-software-services.com
-domainKafka: kafka-ui.analytic-dev.its-software-services.com
+domainInflux: influx.analytic-dev.prom.co.th
+domainGrafana: grafana.analytic-dev.prom.co.th
+domainKafka: kafka-ui.analytic-dev.prom.co.th
 
 grafana:
   grafana.ini:
     server:
-      root_url: https://grafana.analytic-dev.its-software-services.com
-      domain: grafana.analytic-dev.its-software-services.com
+      root_url: https://grafana.analytic-dev.prom.co.th
+      domain: grafana.analytic-dev.prom.co.th
